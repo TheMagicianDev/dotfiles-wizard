@@ -31,7 +31,7 @@ fi
 if [ -f $OH_MY_ZSH_DIR ]; then
   echo "oh-my-zsh already installed"
   echo "Updating ..."
-  omz update
+  # omz update
 else
   echo 'Install oh-my-zsh'
   echo '-----------------'
