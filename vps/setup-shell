@@ -72,4 +72,4 @@ fi
 # set zsh as default
 sudo chsh -s /bin/zsh
 
-echo "\nSetup finished. Try to run `zsh`"
+echo "Setup finished. Try to run `zsh`"
