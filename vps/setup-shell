@@ -11,11 +11,11 @@ HOME_FILES=(
 )
 
 function installOMZ() {
-  if [ -f $OH_MY_ZSH_DIR ] then
+  if [ -f $OH_MY_ZSH_DIR ]; then
     echo "oh-my-zsh already installed"
     echo "Updating ..."
     omz update
-  elif
+  else
     echo 'Install oh-my-zsh'
     echo '-----------------'
     curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
@@ -31,7 +31,7 @@ echo "Checking zsh"
 
 if [ -f "/bin/zsh" ]; then
   echo "zsh already installed"
-elif
+else
   if ! sudo apt install zsh; then
     echo "Failed to install zsh!";
     exit 1;
