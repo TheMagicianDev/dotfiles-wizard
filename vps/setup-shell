@@ -71,3 +71,10 @@ if ! cat $HOME/.bashrc | grep -q "source \$HOME/.shellrc"; then
   echo "Append `source \$HOME/.shellrc` to .bashrc"
   echo "source \$HOME/.shellrc" > $HOME/.bashrc
 fi
+
+# get into zsh
+zsh
+
+# set zsh as default
+sudo chsh -s /bin/zsh
+
