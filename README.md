@@ -7,5 +7,5 @@ Work on progress.
 ## Setup zsh with plugins on vps
 
 ```sh
-git clone git@github.com:TheMagicianDev/dotfiles-wizard.git; ./dotfiles-wizard/vps/setup-shell;
+git clone https://github.com/TheMagicianDev/dotfiles-wizard.git; ./dotfiles-wizard/vps/setup-shell;
 ```
