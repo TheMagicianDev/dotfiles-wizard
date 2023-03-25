@@ -70,7 +70,6 @@ if ! cat $HOME/.bashrc | grep -q "source \$HOME/.shellrc"; then
 fi
 
 # set zsh as default
+echo "Welcome to zsh"
 sudo chsh -s /bin/zsh
-zsh
-
-echo "Setup finished. Try to run `zsh`"
+zsh 
