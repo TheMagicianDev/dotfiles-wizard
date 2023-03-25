@@ -1,0 +1,116 @@
+# ZSH
+alias zshconf="vim ~/.zshrc"
+alias omz="cd ~/.oh-my-zsh"
+
+myAliasFile=$(readlink -f "$0")
+
+# npm
+alias npmi='npm install $@'
+alias npmis='npm install --save $@'
+alias npmisd='npm install --save-dev $@'
+alias npmid='npm install -D $@'
+alias npmu='npm uninstall $@'
+alias npmpb='npm publish $@'
+alias npmvp='npm version patch $@'
+alias npmvmm='npm version minor $@'
+alias npmvmj='npm version major $@'
+alias npmr='npm run $@'
+alias npmrt='npm run test $@'
+alias npmrl='npm run lint $@'
+alias npmrb='npm run build $@'
+
+# pnpm
+alias pnpmi='pnpm install $@'
+alias pnpma='pnpm add $@'
+alias pnpmis='pnpm install --save $@'
+alias pnpmid='pnpm install --D $@'
+alias pnpmisd='pnpm install --save-dev $@'
+alias pnpmad='pnpmasd $@'
+alias pnpmasd='pnpm add -D $@'
+alias pnpmu='pnpm uninstall $@'
+alias pnpmup='pnpm up $@'
+alias pnpmupl='pnpm up --latest $@'
+alias pnpmpb='pnpm publish $@'
+alias pnpmvp='pnpm version patch $@'
+alias pnpmvmm='pnpm version minor $@'
+alias pnpmvmj='pnpm version major $@'
+alias pnpmr='pnpm run $@'
+alias pnpmw='pnpm --workspace $@'
+alias pnpmwf='pnpm --filter $@'
+alias pnpmwfi='pnpm install --filter $@'
+alias pnpmwfa='pnpm add --filter $@'
+alias pnpmwfad='pnpm add -D --filter $@'
+alias pnpmwr='pnpm --workspace-root $@'
+alias pnpmwri='pnpm --workspace-root install $@'
+alias pnpmwrid='pnpm --workspace-root install -D $@'
+alias pnpmwra='pnpm --workspace-root add $@'
+alias pnpmwrad='pnpm --workspace-root add -D $@'
+alias pnpx='pnpm dlx $@'
+alias pnpmex='pnpm exec $@'
+
+# Git
+## -----  basics
+alias gic='git clone $@'
+alias gis='git status $@'
+alias giad='git add $@'
+alias giada='git add -A $@'
+alias gicmt='git commit $@'
+alias gicmtm='git commit -m $@'
+alias gich='git checkout $@'
+alias gichb='git checkout -b $@'
+alias gipsh='git push $@'
+alias gipsho='git push origin $@'
+alias gipshom='git push origin main $@'
+alias gipshoms='git push origin master $@'
+alias gipul='git pull $@'
+alias gipulo='git pull origin $@'
+alias gipulom='git pull origin main $@'
+alias gipuloms='git pull origin master $@'
+alias gibd='git branch -D $@'
+alias girm='git remote $@'
+alias girmv='git remote -v $@'
+alias girma='git remote add $@'
+alias girmao='git remote add origin $@'
+alias girmsu='git remote set-url $@'
+alias girmsuo='git remote set-url origin $@'
+## ----- git submodule
+alias gism='git submodule $@'
+alias gismad='6566'
+alias gismi='git submodule init $@'
+alias gismir='git submodule init --recursive $@'
+alias gismu='git submodule update $@'
+alias gismur='git submodule update --recursive $@'
+alias gismuir='git submodule update --init --recursive $@'
+alias gismuirr='git submodule update --init --recursive --remote$@'
+alias gismurr='git submodule update --recursive --remote $@'
+
+
+# ---____________/ Dev toolboxes
+
+## ----- js
+
+### ------- package.json
+alias jspkgsortnpm='npx sort-package-json $@'
+alias jspkgsortpnpm='pnpx sort-package-json $@'
+alias jspkgsort='jspkgsortnpm $@'
+alias jsonSort='jspkgsortnpm $@'
+
+# ----- my aliases file
+alias aliasvsc="code $myAliasFile"
+alias aliasvim="vim $myAliases"
+
+aliasRefresh() {
+    source $myAliasFile
+}
+
+aliasList() {
+  cat $myAliasFile
+}
+
+# Os specific
+alias install="sudo apt install"
+
+# Misc
+alias fast="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+
+
