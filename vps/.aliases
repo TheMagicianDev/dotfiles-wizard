@@ -1,6 +1,6 @@
 # ZSH
 alias zshconf="vim ~/.zshrc"
-alias omz="cd ~/.oh-my-zsh"
+alias omzd="cd ~/.oh-my-zsh"
 
 myAliasFile=$(readlink -f "$0")
 
