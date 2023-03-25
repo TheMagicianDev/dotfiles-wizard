@@ -45,9 +45,8 @@ if ! installOMZ; then
 fi
 
 # Installing antigen
-# TODO: use curl to make it system agnostic https://github.com/zsh-users/antigen/wiki/Installation
 echo "installing antigen ..."
-if ! sudo apt install zsh-antigen; then
+if ! sudo curl -L git.io/antigen > $HOME/antigen.zsh; then
   echo "Failed to install antigen!";
   exit 1;
 fi
