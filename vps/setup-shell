@@ -10,18 +10,6 @@ HOME_FILES=(
   ".zshrc"
 )
 
-function installOMZ() {
-  if [ -f $OH_MY_ZSH_DIR ]; then
-    echo "oh-my-zsh already installed"
-    echo "Updating ..."
-    omz update
-  else
-    echo 'Install oh-my-zsh'
-    echo '-----------------'
-    curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-  fi
-}
-
 echo "sudo in"
 sudo -v
 
@@ -39,9 +27,18 @@ else
 fi
 
 # Installing oh-my-zsh
-if ! installOMZ; then
-  echo "Failed to install omz!";
-  exit 1;
+
+if [ -f $OH_MY_ZSH_DIR ]; then
+  echo "oh-my-zsh already installed"
+  echo "Updating ..."
+  omz update
+else
+  echo 'Install oh-my-zsh'
+  echo '-----------------'
+  if ! curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; then
+    echo "Failed to install omz!";
+    exit 1;
+  fi
 fi
 
 # Installing antigen
