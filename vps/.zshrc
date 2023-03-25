@@ -10,9 +10,9 @@ antigen use oh-my-zsh
 
 ## Default omyzsh plugins
 plugins=(git ubuntu composer github laravel sudo)
-for plugin in "${plugins[@]}"
+for plugin in "${plugins[@]}"; do
   antigen bundle $plugin
-do
+done
 
 ## custom
 antigen bundle zsh-users/zsh-autosuggestions
