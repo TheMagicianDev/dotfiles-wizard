@@ -20,7 +20,7 @@ echo "Checking zsh"
 if [ -f "/bin/zsh" ]; then
   echo "zsh already installed"
 else
-  if ! sudo apt install zsh; then
+  if ! sudo apt install zsh -y; then
     echo "Failed to install zsh!"
     exit 1
   fi
