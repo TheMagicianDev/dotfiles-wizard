@@ -1,0 +1,351 @@
+# ZSH
+alias zshconf="vim ~/.zshrc"
+alias omzd="cd ~/.oh-my-zsh"
+
+myAliasFile=$(readlink -f "$0")
+
+# pip3
+alias pip3i='pip3 install $@'
+
+# ------ react native
+alias rnits='npx react-native init $@'
+alias rnits='npx react-native --template react-native-template-typescript init $@'
+
+# ----- Watchman
+
+## Clean and fix watchman
+function wmclr() {
+  watchman watch-del-all
+  watchman shutdown-server
+}
+
+# ______/ langs
+
+# ----- Rust
+## -- rustup
+alias rustUpdate="rustup update $@"
+alias rstu="rustUpdate $@"
+## -- cargo
+alias cg="cargo $@"
+# create new project
+alias cgn="cg new $@"
+# add dependency to manifest (no install) - run build to install and build
+alias cga="cg add $@"
+# build
+alias cgb="cg build $@"
+# run
+alias cgr="cg run $@"
+alias cgt="cg test $@"
+alias cgd="cg doc $@"
+alias cgp="cg publish $@"
+alias rustNew="cgn $@"
+alias rstn="rustNew $@"
+alias rustAdd="cga $@"
+alias rsta="rustAdd $@"
+alias rustBuild="cgb $@"
+alias rstb="rustBuild $@"
+alias rustRun="cgr $@"
+alias rstr="rustRun $@"
+alias rustTest="cgt $@"
+alias rstt="rustTest $@"
+alias rustDoc="cgd $@"
+alias rstd="rustDoc $@"
+alias rustPublish="cgp $@"
+alias rstp="rustPublish $@"
+#-Binaries and examples installation
+# install packages and build binaries
+## -- without lock usage
+alias cgi="cg install $@"
+## -- with lock usage
+alias cgil="cg install --locked $@"
+
+# ----- PHP laravel
+alias art="php artisan $@"
+alias artserve="art serve $@"
+alias arts="artserve $@"
+alias artPint="art pint $@"
+alias artPintLint="art pint:lint $@"
+alias artPintFix="art pint:fix $@"
+alias artTinker="art tinker $@"
+alias artKeyGen="art key:generate $@"
+alias artEventGen="art event:generate $@"
+## make command
+### --- provider
+alias artMakeProvider="art make:provider $@"
+### --- model
+alias artMakeModel="art make:model $@"
+### --- model observer
+alias artMakeObserver="art make:observer $@"
+### --- event
+### --- listener
+### --- notification
+### --- Command
+alias artMakeCommand="art make:command $@"
+### --- migration
+### --- View Component
+alias artMakeComponent="art make:component $@"
+alias artMakeViewComponent="artMakeComponent $@"
+## Migration command
+### --- migrations status (list run one so far)
+alias artMigrateStatus="art migrate:status $@"
+alias artmigs="artMigrateStatus $@"
+### --- run migrations
+alias artMigrate="art migrate $@"
+alias artMigrateRun="artMigrate $@"
+alias artmig="artMigrate $@"
+### --- rolling back migrations
+#### - rolling last one
+alias artMigrateRollback="art migrate:rollback $@"
+alias artmigrl="artMigrateRollback $@"
+#### - rest all (roll back all migrations)
+alias artMigrateReset="art migrate:reset $@"
+alias artmigreset="artMigrateReset $@"
+
+# ----- PHP composer
+alias comp="composer $@"
+alias compv="comp --version $@"
+alias compi="comp i $@"
+alias compu="comp u $@"
+alias compreq="comp require $@"
+alias compreqd="compreq --dev $@"
+alias comprm="comp remove $@"
+alias compDumpAutoload="comp dump-autoload $@"
+alias compdal="compDumpAutoload $@"
+
+# ---____________/ Dev toolboxes
+
+## ----- js
+
+### ------- package.json
+alias jspkgsortnpm='npx sort-package-json $@'
+alias jspkgsortpnpm='pnpx sort-package-json $@'
+alias jspkgsort='jspkgsortnpm $@'
+alias jsonSort='jspkgsortnpm $@'
+
+# ----- Qemu
+alias qemus='qemu-system-x86_64 $@'
+
+# ----- my aliases file
+alias aliasvsc="code $myAliasFile"
+alias aliasvim="vim $myAliases"
+
+aliasRefresh() {
+  source $myAliasFile
+}
+alias alr="aliasRefresh $@"
+
+aliasList() {
+  cat $myAliasFile
+}
+
+aliasPush() {
+
+}
+
+# Google Chrome Alias
+chrome() {
+  open -a "Google Chrome" --args "$1"
+}
+
+# Chrome devtools tools
+
+## print or download harl copied content from devtools
+## (https://gist.github.com/cvan/03ffa0c71317cb6b0b95a41ab189b097)
+alias hurlp='pbpaste | jq ".log.entries" | tee >(jq --raw-output "[.[] | .request.url] | sort | unique | .[]")'
+function hurld() {
+  hurlp >$1
+}
+# alias hurld='pbpaste | jq ".log.entries" | jq --raw-output "[.[] | .request.url] | sort | unique | .[]" | harurls | tee >(xargs -n 1 curl -O $1)'
+
+# kill process of a running socket at port
+killSocket() {
+  lsof -ti :$1 | xargs kill -9
+}
+
+# Compressions tools
+# ______________________________/
+
+## gz unzip and open in vscode
+gzcode() {
+  filename=${1%.*}
+  gzip -d $1 && code $filename
+}
+
+alias gzd='gzip -d $@'
+
+# Macos utilities or helpers
+# ______________________________________________/
+alias ot='open -b com.apple.terminal $@'
+
+# Shell utilities
+# ______________________________________________/
+# ----- copy file content
+function copy() {
+  if [ -z "$1" ]; then
+    echo "Usage: copy <file>"
+    return 1
+  fi
+  if [ -f "$1" ]; then
+    cat "$1" | pbcopy
+  else
+    echo "File not found: $1"
+  fi
+}
+
+# Linux or mac common shell commands
+# ______________________________________________/
+
+# whereis
+alias wis="whereis $@"
+
+### current dir
+alias crdir='echo $PWD'
+
+# Extended shell utilitis
+# ______________/
+
+# Process name whereis
+# - Whereis works on command only, This function works on processes.
+# - And names doesn't need to be precise
+function getProcessWhereis() {
+  local cmd="$1"
+  local ps_output=$(ps aux)
+  local header=$(echo "$ps_output" | sed -n '1p')
+  local processes=$(echo "$ps_output" | grep -v "grep" | grep "$cmd")
+  if [ -z "$processes" ]; then
+    echo "No processes found for command: $cmd"
+  else
+    echo "Processes:"
+    echo "----------"
+    echo "$header"
+    echo "$processes"
+    echo ""
+    echo "PIDs:"
+    echo "-----"
+    local pids=$(echo "$processes" | awk '{print $2}')
+    echo "$pids"
+    echo ""
+    echo "🔥🔥🔥 Whereis Location 🔥🔥🔥:"
+    echo "-----------------"
+    printf "%-8s %s\n" "PID" "Location"
+    while read -r pid; do
+      local exe=$(readlink -f "/proc/$pid/exe")
+      printf "%-8s %s\n" "$pid" "$exe"
+    done <<<"$pids"
+  fi
+}
+
+alias pwis="getProcessWhereis $@"
+
+# The above is done using chatgpt, and the bellow is done through searching online
+# - Difference in time
+# - Check the following video [] for the details
+function getProcessWhereisDoneByME() {
+  local name=$1
+  local allPIDsVerbose=$(ps axf | grep $name | grep -v grep)
+  echo "processes:"
+  echo "----------"
+  printf "%7s%15s\n" "pid" "details"
+  echo "$allPIDsVerbose\n"
+  local allPIDs=$(echo "$allPIDsVerbose" | awk '{print $1}')
+  echo "pids:"
+  echo "-----"
+  echo "$allPIDs\n"
+
+  local masterPID=$(echo "$allPIDs" | awk 'NR==1{print $1}')
+  echo "Location:"
+  echo "---------"
+  printf "%s\t\t%s\n" "pid" "location"
+  for pid in $(echo "$allPIDs"); do
+    location=$(readlink -f /proc/$pid/exe)
+    printf "%d\t\t%s\n" "$pid" "$location"
+  done
+}
+
+# Networking
+# ______________________________________________/
+
+# ssh
+
+# Networking tools
+
+## Monitor connection
+
+DEFAULT_INTERFACE="en0"
+
+#--- iftop for traffic and ips
+alias ift="sudo iftop -i $DEFAULT_INTERFACE"
+alias trafficIfTop="ift"
+
+#--- nettop for traffic per process
+alias nettp="nettop -dcP"
+alias trafficByProcessNetTop="nettp"
+
+#--- Nethogs for getting traffic per process or app
+alias nethg="sudo nethogs $DEFAULT_INTERFACE"
+alias trafficByProcessNethogs="nethg"
+
+## router
+
+### router admin page
+function openRouterAdmin() {
+  # Get the default gateway IP address
+  gateway_ip=$(netstat -rn | grep default | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+  # Open the admin page in the default web browser
+  open "http://$gateway_ip"
+}
+
+function getRouterAdmin() {
+  gateway_ip=$(netstat -rn | grep default | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+  echo $gateway_ip
+}
+
+## Network stress tools
+
+### hping rate per second
+function hpingsec() {
+  local rate=$1
+  local interval=$((1000000 / rate))
+  shift # shift arguments to ignore the rate argument
+  echo "sudo hping3 -i u$interval $@"
+  sudo -S hping3 -i u$interval $@
+}
+
+# Macos utilities
+# _______________________________/
+
+# macos screenshot at interval (1 sec the smallest time)
+screenInterval() {
+  while :; do
+    screencapture ~/Documents/screencapture/$(date +%y%m%d%H%M%S).png
+    sleep $1
+  done
+}
+
+# Files and Directories utilities
+# _________________________________________/
+
+generate_empty_dirs() {
+  local source_dir="$1"
+  local target_dir="$2"
+
+  if [ -z "$target_dir" ]; then
+    target_dir="${source_dir}/GeneratedFolder"
+  fi
+
+  mkdir -p "$target_dir"
+  echo "mkdir -p \"$target_dir\""
+
+  find "$source_dir" -type d -print | while IFS= read -r dir; do
+    if [ "$dir" != "$source_dir" ]; then
+      rel_path="${dir#${source_dir}/}"
+      echo "dir: $dir"
+      echo "rel_path: $rel_path"
+      mkdir -p "${target_dir}/${rel_path}"
+      echo "mkdir -p \"${target_dir}/${rel_path}\""
+    fi
+  done
+}
+
+# Misc
+alias fast="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"

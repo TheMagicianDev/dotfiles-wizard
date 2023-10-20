@@ -1,0 +1,78 @@
+#!/bin/bash
+CURR_FILE=$(readlink -f "$0")
+CURR_DIR=$(dirname $CURR_FILE)
+
+OH_MY_ZSH_DIR=$HOME/.oh-my-zsh
+
+HOME_FILES=(
+  ".aliases"
+  ".shellrc"
+  ".zshrc"
+)
+
+echo "sudo in"
+sudo -v
+
+# Install zsh
+
+echo "Checking zsh"
+
+if [ -f "/bin/zsh" ]; then
+  echo "zsh already installed"
+else
+  if ! sudo apt install zsh; then
+    echo "Failed to install zsh!"
+    exit 1
+  fi
+fi
+
+# Installing oh-my-zsh
+
+if [ -d $OH_MY_ZSH_DIR ]; then
+  echo "oh-my-zsh already installed"
+  echo "Updating ..."
+  omz update
+else
+  echo 'Install oh-my-zsh'
+  echo '-----------------'
+  if ! curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; then
+    echo "Failed to install omz!"
+    exit 1
+  fi
+fi
+
+# Installing antigen
+echo "installing antigen ..."
+if [ ! -e "$HOME/antigen.zsh" ]; then
+  if ! curl -L git.io/antigen >$HOME/antigen.zsh; then
+    echo "Failed to install antigen!"
+    exit 1
+  fi
+else
+  echo "Antigen already installed."
+fi
+
+# Copying config files
+## TODO: add adding only no existing files using sed and by making a good structure default and ... grep -q
+
+echo "Copying config files"
+
+for file in "${HOME_FILES[@]}"; do
+  # create back
+  if [ -f "$HOME/$file" ]; then
+    cp "$HOME/$file" "$HOME/$file.back"
+  fi
+  # copy config files
+  cp "$CURR_DIR/$file" "$HOME/$file"
+done
+
+# Adding .shellrc to .bashrc
+if ! cat $HOME/.bashrc | grep -q "source \$HOME/.shellrc"; then
+  echo "Append $(source $HOME/.shellrc) to .bashrc"
+  echo "source \$HOME/.shellrc" >$HOME/.bashrc
+fi
+
+# set zsh as default
+echo "Welcome to zsh"
+sudo chsh -s /bin/zsh
+zsh
