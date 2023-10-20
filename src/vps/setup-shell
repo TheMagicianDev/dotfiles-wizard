@@ -52,6 +52,15 @@ else
   echo "Antigen already installed."
 fi
 
+# Fix git not installed issue (only when flag specified)
+if [ "$ANTIGEN_GIT_FIX" ]; then
+  # Check if git existance check issue is fixed or need fixing
+  if grep -q "\$+commands\[git\]" "$HOME/antigen.zsh"; then
+    sed -i'' 's/[(][[:space:]]*! \$+commands\[git\][[:space:]]*[)]/ ! command -v git \&> \/dev\/null /g' $HOME/antigen.zsh
+    echo "antigen git existance issue fixed successfully."
+  fi
+fi
+
 # Copying config files
 ## TODO: add adding only no existing files using sed and by making a good structure default and ... grep -q
 
